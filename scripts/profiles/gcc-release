@@ -11,7 +11,7 @@ os=Linux
 CXX=g++
 
 [conf]
-&:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release"}
+&:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release", "CMAKE_CXX_STDLIB_MODULES_JSON": "/usr/local/lib64/libstdc++.modules.json"}
 
 [tool_requires]
 catch2/*:ninja/[~1]

@@ -5,5 +5,5 @@ fmt/[~12]
 catch2/[~3]
 
 [tool_requires]
-cmake/[~4.4]
+cmake/4.4.0
 ninja/[~1]
