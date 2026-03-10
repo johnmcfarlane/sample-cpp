@@ -12,7 +12,7 @@ CXX=g++
 
 [conf]
 &:tools.build:cxxflags=["-coverage"]
-&:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Debug"}
+&:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Debug", "CMAKE_CXX_STDLIB_MODULES_JSON": "/usr/local/lib64/libstdc++.modules.json"}
 
 [tool_requires]
 catch2/*:ninja/[~1]

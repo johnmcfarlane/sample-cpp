@@ -1,5 +1,4 @@
-#include <chrono>
-#include <thread>
+import std;
 
 auto main() -> int
 {
