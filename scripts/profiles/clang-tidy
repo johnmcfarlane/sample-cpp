@@ -12,8 +12,8 @@ CXX=clang++
 
 [conf]
 !&:tools.build:cxxflags=["-fdiagnostics-color=always"]
-&:tools.build:cxxflags=["-fdiagnostics-color=always", "-g", "-Wall", "-Werror", "-Wextra"]
-&:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release", "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--allow-no-checks"}
+&:tools.build:cxxflags=["-fdiagnostics-color=always", "-g", "-Wall", "-Werror", "-Wextra", "-Wno-error=reserved-module-identifier"]
+&:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release", "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--allow-no-checks", "CMAKE_CXX_STDLIB_MODULES_JSON": "/usr/lib/llvm-23/lib/libc++.modules.json"}
 
 [tool_requires]
 catch2/*:ninja/[~1]
