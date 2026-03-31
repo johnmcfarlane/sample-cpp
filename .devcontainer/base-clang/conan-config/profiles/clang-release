@@ -4,6 +4,3 @@ include(default)
 build_type=Release
 compiler.cppstd=26
 compiler.libcxx=libc++
-
-[tool_requires]
-fmt/*:cmake/[~4.3]

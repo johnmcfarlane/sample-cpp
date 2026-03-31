@@ -1,5 +1,12 @@
+include(FetchContent)
+
 find_package(Catch2 REQUIRED)
-find_package(fmt REQUIRED)
+
+FetchContent_Declare(
+  fmt
+  GIT_REPOSITORY https://github.com/fmtlib/fmt
+  GIT_TAG        3febdca556d2979566cd88ebebeb809c9faabcc0)
+FetchContent_MakeAvailable(fmt)
 
 add_library(simple)
 target_sources(simple
