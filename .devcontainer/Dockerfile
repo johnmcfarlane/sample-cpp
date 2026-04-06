@@ -6,7 +6,9 @@ ARG base_image
 ARG profile=error-missing-profile-arg
 
 RUN groupadd --gid 1000 tux \
-    && useradd --create-home --gid 1000 --shell /bin/bash --uid 1000 tux
+    && useradd --create-home --gid 1000 --shell /bin/bash --uid 1000 tux \
+    && echo tux ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/tux \
+    && chmod 0440 /etc/sudoers.d/tux
 USER tux
 
 ENV BUILD_DIR=/home/tux/build
