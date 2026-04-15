@@ -9,6 +9,7 @@ RUN apt-get update --quiet \
       lsb-release \
       ninja-build \
       python3-pip \
+      sudo \
       wget \
   && wget https://apt.llvm.org/llvm.sh \
   && chmod +x llvm.sh \
