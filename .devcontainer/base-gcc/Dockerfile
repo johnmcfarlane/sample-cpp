@@ -1,34 +1,14 @@
-FROM debian:13.4
+FROM gcc:16.1.0
 
 ARG image_version=trunk
 
-RUN apt-get update --quiet \
+RUN apt-get purge --autoremove --yes gcc libgmp-dev make \
+  && apt-get update --quiet \
+  && apt-get upgrade --yes \
   && apt-get install --no-install-recommends --quiet --yes \
-      binutils \
-      flex \
-      g++ \
-      gcc-multilib \
-      gdb \
-      git \
-      gnulib \
-      libgmp-dev \
-      libmpc-dev \
-      libmpc3 \
-      libmpfr-dev \
-      make \
       ninja-build \
       python3-pip \
       sudo \
-  && git clone --branch trunk --single-branch git://gcc.gnu.org/git/gcc.git \
-  && cd gcc && git checkout ${image_version} && cd .. \
-  && mkdir /build && cd /build \
-  && /gcc/configure --disable-multilib --enable-languages=c,c++,lto \
-  && make --jobs $(nproc) \
-  && make install \
-  && apt-get purge --autoremove --yes flex g++ gcc libgmp-dev libmpc-dev libmpfr-dev make \
-  && apt-get install --no-install-recommends --quiet --yes libc6-dev \
   && rm -rf /gcc /build /var/lib/apt/lists/*
-
-ENV LD_LIBRARY_PATH=/usr/local/lib64
 
 RUN pip install "conan==2.24.0" --break-system-packages --no-cache-dir
