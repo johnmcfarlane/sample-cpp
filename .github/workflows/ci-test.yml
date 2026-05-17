@@ -17,8 +17,6 @@ jobs:
   tests:
     name: CI test
     runs-on: ubuntu-latest
-    env:
-      image_tag: 2
     permissions:
       packages: write
 
@@ -107,7 +105,7 @@ jobs:
         with:
           configFile: .devcontainer/${{ matrix.devcontainer }}/devcontainer.json
           imageName: ghcr.io/johnmcfarlane/simple-cpp/ci-test-${{ matrix.devcontainer }}
-          imageTag: ${{ env.image_tag }}
+          imageTag: 3
           env: |
             TRIGGER_CLANG_TIDY=${{ matrix.trigger_clang_tidy }}
             TRIGGER_STDLIB=${{ matrix.trigger_stdlib }}
