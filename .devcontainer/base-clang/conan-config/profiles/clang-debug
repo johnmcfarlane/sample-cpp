@@ -1,9 +1,11 @@
-include(default)
-
 [settings]
+arch=x86_64
 build_type=Debug
+compiler=clang
 compiler.cppstd=26
 compiler.libcxx=libc++
+compiler.version=23
+os=Linux
 
 [conf]
 !&:tools.build:cxxflags=["-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG", "-fdiagnostics-color=always", "-fsanitize-trap", "-fsanitize=address,undefined"]
