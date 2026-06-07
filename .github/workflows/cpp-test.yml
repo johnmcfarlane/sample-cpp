@@ -54,6 +54,7 @@ jobs:
           - clang-test-tsan
           - clang-tidy
           - gcc-debug
+          - gcc-gcov
           - gcc-release
           - gcc-test
 
@@ -73,6 +74,19 @@ jobs:
           scripts/install ${{ matrix.profile }}
           scripts/build ${{ matrix.profile }}
           scripts/test ${{ matrix.profile }}
+
+      - name: Generate coverage report
+        if: ${{ matrix.profile == 'gcc-gcov' }}
+        run: |
+          scripts/report ${{ matrix.profile }}
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: ${{ matrix.profile == 'gcc-gcov' }}
+        with:
+          name: coverage-report
+          path: /root/builds/${{ matrix.profile }}/test-coverage.html
+          if-no-files-found: error
 
   lint:
     name: lint

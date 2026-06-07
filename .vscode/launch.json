@@ -40,6 +40,7 @@
                 "clang-test-tsan",
                 "clang-tidy",
                 "gcc-debug",
+                "gcc-govr",
                 "gcc-release",
                 "gcc-test"
             ]

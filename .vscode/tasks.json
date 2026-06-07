@@ -68,6 +68,21 @@
                 "isDefault": true
             },
         },
+        {
+            "label": "report coverage",
+            "dependsOn": "test",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/report",
+            "args": [
+                "${input:profile}"
+            ],
+            "group": {
+                "kind": "test"
+            },
+            "presentation": {
+                "clear": true,
+            },
+        },
     ],
     "inputs": [
         {
@@ -82,6 +97,7 @@
                 "clang-test-tsan",
                 "clang-tidy",
                 "gcc-debug",
+                "gcc-gcov",
                 "gcc-release",
                 "gcc-test"
             ]

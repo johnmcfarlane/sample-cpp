@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# run from the root build directory, i.e. BUILD_DIR,
+# after invoking workspace/test with the gcc-gcov profile
+
+set -euox pipefail
+
+project_dir="$(realpath "$(dirname -- "$0")/..")"
+profile="$1"
+build_dir="$BUILD_DIR_PARENT"/"$profile"
+
+# Enforce the correct profile.
+expected_profile=gcc-gcov
+if [[ "$expected_profile" != "$profile" ]]; then
+    printf "error: wrong profile; expected=%s; actual=%s\n" "$expected_profile" "$profile"
+    exit 1
+fi
+
+gcovr \
+    --config "$project_dir"/scripts/gcovr.cfg \
+    --exclude '(.+/.+)?\.unit\-test\.cpp$' \
+    --html-details \
+    --output "$build_dir"/test-coverage.html \
+    --root "$project_dir" \
+    --verbose \
+    "$build_dir"
