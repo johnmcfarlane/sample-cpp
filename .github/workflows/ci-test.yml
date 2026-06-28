@@ -113,5 +113,5 @@ jobs:
             TRIGGER_UBSAN=${{ matrix.trigger_ubsan }}
             TRIGGER_WARNING=${{ matrix.trigger_warning }}
           runCmd: |
-            cmake --build $BUILD_DIR --verbose
-            ctest --output-on-failure --parallel --test-dir $BUILD_DIR --verbose
+            scripts/build
+            scripts/test

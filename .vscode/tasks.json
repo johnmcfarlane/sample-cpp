@@ -6,7 +6,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "cmake --build ${env:BUILD_DIR}",
+            "command": "${workspaceFolder}/scripts/build",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -18,7 +18,7 @@
         {
             "label": "clean",
             "type": "shell",
-            "command": "cmake --build ${env:BUILD_DIR} --target clean",
+            "command": "${workspaceFolder}/scripts/clean",
             "group": {
                 "kind": "build",
             },
@@ -29,7 +29,7 @@
         {
             "label": "lint",
             "type": "shell",
-            "command": "${workspaceFolder}/.devcontainer/lint/lint",
+            "command": "${workspaceFolder}/scripts/lint",
             "group": {
                 "kind": "test",
             },
@@ -41,7 +41,7 @@
             "label": "test",
             "dependsOn": "build",
             "type": "shell",
-            "command": "ctest --output-on-failure --parallel --test-dir ${env:BUILD_DIR}",
+            "command": "${workspaceFolder}/scripts/test",
             "group": {
                 "kind": "test",
                 "isDefault": true

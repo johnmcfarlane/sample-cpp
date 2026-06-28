@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# run after invoking workspace/build with the same parameters
+
+set -euox pipefail
+
+# Run unit tests.
+ctest --output-on-failure --parallel --test-dir "$BUILD_DIR" --verbose

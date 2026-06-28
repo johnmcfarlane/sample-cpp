@@ -46,8 +46,8 @@ jobs:
           imageName: ghcr.io/johnmcfarlane/simple-cpp/${{ matrix.profile }}
           imageTag: 3
           runCmd: |
-            cmake --build $BUILD_DIR --verbose
-            ctest --output-on-failure --test-dir $BUILD_DIR
+            scripts/build
+            scripts/test
 
   lint:
     name: lint
@@ -72,4 +72,4 @@ jobs:
           configFile: .devcontainer/lint/devcontainer.json
           imageName: ghcr.io/johnmcfarlane/simple-cpp/lint
           imageTag: 3
-          runCmd: .devcontainer/lint/lint
+          runCmd: scripts/lint

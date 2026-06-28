@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# run after invoking workspace/build with the same parameters
+
+set -euox pipefail
+
+# Build project.
+cmake --build "$BUILD_DIR" --target clean
