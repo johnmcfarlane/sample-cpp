@@ -11,6 +11,10 @@ build_dir="$BUILD_DIR_PARENT"/"$profile"
 # Make it unique to the profile, in case multiple profiles are built.
 mkdir -p "$build_dir"
 
+# Initialise Conan.
+conan config install "$project_dir"/.devcontainer/conan-config
+conan profile detect --force
+
 # Install dependencies.
 conan install \
     --build="missing" \

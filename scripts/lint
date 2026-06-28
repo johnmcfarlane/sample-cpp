@@ -18,4 +18,5 @@ find . -path ./.git -prune -o -executable -type f -exec \
   {} '+'
 
 # If anything has changed, print and fail.
+git config --global --add safe.directory "$(pwd)"
 git diff --exit-code
