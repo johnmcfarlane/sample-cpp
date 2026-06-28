@@ -17,8 +17,12 @@ jobs:
   tests:
     name: CI test
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
+
+    container:
+      image: ghcr.io/johnmcfarlane/simple-cpp:5
+      credentials:
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     strategy:
       fail-fast: false
@@ -91,25 +95,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v7
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v4
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build and run control tests
-        uses: devcontainers/ci@v0.3
-        with:
-          imageName: ghcr.io/johnmcfarlane/simple-cpp/ci-test
-          imageTag: 3
-          env: |
-            TRIGGER_CLANG_TIDY=${{ matrix.trigger_clang_tidy }}
-            TRIGGER_STDLIB=${{ matrix.trigger_stdlib }}
-            TRIGGER_TSAN=${{ matrix.trigger_tsan }}
-            TRIGGER_UBSAN=${{ matrix.trigger_ubsan }}
-            TRIGGER_WARNING=${{ matrix.trigger_warning }}
-          runCmd: |
-            scripts/install ${{ matrix.profile }}
-            scripts/build ${{ matrix.profile }} .github/workflows/ci-test
-            scripts/test ${{ matrix.profile }}
+        env:
+          TRIGGER_CLANG_TIDY: ${{ matrix.trigger_clang_tidy }}
+          TRIGGER_STDLIB: ${{ matrix.trigger_stdlib }}
+          TRIGGER_TSAN: ${{ matrix.trigger_tsan }}
+          TRIGGER_UBSAN: ${{ matrix.trigger_ubsan }}
+          TRIGGER_WARNING: ${{ matrix.trigger_warning }}
+        run: |
+          scripts/install ${{ matrix.profile }}
+          scripts/build ${{ matrix.profile }} .github/workflows/ci-test
+          scripts/test ${{ matrix.profile }}
