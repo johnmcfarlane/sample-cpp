@@ -8,8 +8,33 @@ on:
   workflow_dispatch:
 
 jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image
+        uses: devcontainers/ci@v0.3
+        with:
+          cacheFrom: ghcr.io/johnmcfarlane/simple-cpp
+          imageName: ghcr.io/johnmcfarlane/simple-cpp
+          imageTag: 5
+          push: always
+
   unit-tests:
     name: test
+    needs: build-image
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -42,8 +67,8 @@ jobs:
       - name: Build and run tests
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ghcr.io/johnmcfarlane/simple-cpp
-          imageTag: 4
+          cacheFrom: ghcr.io/johnmcfarlane/simple-cpp:5
+          push: never
           runCmd: |
             scripts/install ${{ matrix.profile }}
             scripts/build ${{ matrix.profile }}
@@ -51,6 +76,7 @@ jobs:
 
   lint:
     name: lint
+    needs: build-image
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -69,6 +95,6 @@ jobs:
       - name: Run linter
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ghcr.io/johnmcfarlane/simple-cpp/lint
-          imageTag: 4
+          cacheFrom: ghcr.io/johnmcfarlane/simple-cpp:5
+          push: never
           runCmd: scripts/lint

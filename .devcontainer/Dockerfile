@@ -3,15 +3,10 @@ FROM gcc:16.1.0
 RUN apt-get purge --autoremove --yes gcc libgmp-dev make \
   && apt-get update --quiet \
   && apt-get install --no-install-recommends --quiet --yes \
-      ca-certificates \
-      gdb \
-      git \
-      gpg \
       lsb-release \
       ninja-build \
       python3-pip \
       sudo \
-      wget \
   && wget https://apt.llvm.org/llvm.sh \
   && chmod +x llvm.sh \
   && ./llvm.sh 22 \
