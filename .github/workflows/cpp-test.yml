@@ -36,8 +36,6 @@ jobs:
     name: test
     needs: build-image
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
 
     strategy:
       fail-fast: false
@@ -78,8 +76,6 @@ jobs:
     name: lint
     needs: build-image
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
 
     steps:
       - name: Check out code
