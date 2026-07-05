@@ -30,4 +30,4 @@ RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-22 1
 
 RUN pip install "conan==2.24.0" "shellcheck-py==0.11.0.1" --break-system-packages --no-cache-dir
 
-ENV BUILD_DIR_PARENT=/home/tux/builds
+ENV BUILD_DIR_PARENT=/root/builds
