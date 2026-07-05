@@ -7,6 +7,7 @@ RUN apt-get purge --autoremove --yes gcc libgmp-dev make \
       ninja-build \
       python3-pip \
       sudo \
+      tree \
   && wget https://apt.llvm.org/llvm.sh \
   && chmod +x llvm.sh \
   && ./llvm.sh 22 \
