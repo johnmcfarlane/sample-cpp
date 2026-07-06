@@ -81,7 +81,7 @@ jobs:
           scripts/report ${{ matrix.profile }}
 
       - name: Upload coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.profile == 'gcc-gcov' }}
         with:
           name: coverage-report
