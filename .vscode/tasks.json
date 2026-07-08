@@ -69,7 +69,7 @@
             },
         },
         {
-            "label": "report coverage",
+            "label": "generate coverage report",
             "dependsOn": "test",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/report",
@@ -78,9 +78,6 @@
             ],
             "group": {
                 "kind": "test"
-            },
-            "presentation": {
-                "clear": true,
             },
         },
     ],
