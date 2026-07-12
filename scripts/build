@@ -26,5 +26,7 @@ cmake --build "$build_dir" --verbose
 ctest \
     --output-on-failure \
     --parallel \
+    --repeat-until-fail 10 \
+    --schedule-random \
     --test-dir "$build_dir" \
     --verbose
