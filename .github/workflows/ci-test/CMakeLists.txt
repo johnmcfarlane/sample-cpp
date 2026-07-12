@@ -37,7 +37,7 @@ function(add_control_test test_name fault_name)
 endfunction()
 
 # Test a static analyser check.
-function(add_static_control_tests fault_name will_fail diagnostic)
+function(add_control_tests fault_name will_fail diagnostic)
     # Test whether a fault results in a failure exit status during the build process.
     add_control_test(${fault_name}-exit ${fault_name})
 
@@ -47,28 +47,17 @@ function(add_static_control_tests fault_name will_fail diagnostic)
     setup_control_test_properties(${fault_name}-exit ${fault_name}-output ${will_fail} ${diagnostic})
 endfunction()
 
-# Test a dynamic analyser check.
-function(add_dynamic_control_tests fault_name will_fail diagnostic)
-    # Test whether a fault results in a failure exit status during execution.
-    add_control_test(${fault_name}-exit ${fault_name})
-
-    # Test whether a fault results in a helpful diagnostic output during execution.
-    add_control_test(${fault_name}-output ${fault_name})
-
-    setup_control_test_properties(${fault_name}-exit ${fault_name}-output ${will_fail} ${diagnostic})
-endfunction()
-
 # TSan catches a data race.
-add_dynamic_control_tests(data-race $ENV{TRIGGER_TSAN} "data race")
+add_control_tests(data-race $ENV{TRIGGER_TSAN} "data race")
 
 # The Sandard Library catches a buffer overflow.
-add_dynamic_control_tests(vector-overflow $ENV{TRIGGER_STDLIB} "Illegal instruction|index out of bounds|Assertion .*size.* failed")
+add_control_tests(vector-overflow $ENV{TRIGGER_STDLIB} "Illegal instruction|index out of bounds|Assertion .*size.* failed")
 
 # UBSan catches an integer overflow.
-add_dynamic_control_tests(integer-overflow $ENV{TRIGGER_UBSAN} "Illegal instruction|signed integer overflow")
+add_control_tests(integer-overflow $ENV{TRIGGER_UBSAN} "Illegal instruction|signed integer overflow")
 
 # Clang-Tidy catches a use of `goto`.
-add_static_control_tests(goto $ENV{TRIGGER_CLANG_TIDY} "avoid using 'goto' for flow control")
+add_control_tests(goto $ENV{TRIGGER_CLANG_TIDY} "avoid using 'goto' for flow control")
 
 # The compiler catches an unused label.
-add_static_control_tests(unused-label $ENV{TRIGGER_WARNING} "my_unused_label")
+add_control_tests(unused-label $ENV{TRIGGER_WARNING} "my_unused_label")
