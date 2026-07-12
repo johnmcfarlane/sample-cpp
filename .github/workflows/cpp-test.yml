@@ -73,7 +73,6 @@ jobs:
         run: |
           scripts/install ${{ matrix.profile }}
           scripts/build ${{ matrix.profile }}
-          scripts/test ${{ matrix.profile }}
 
       - name: Generate coverage report
         if: ${{ matrix.profile == 'gcc-gcov' }}

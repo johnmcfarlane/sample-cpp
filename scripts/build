@@ -21,3 +21,10 @@ cmake \
 
 # Build project.
 cmake --build "$build_dir" --verbose
+
+# Run unit tests.
+ctest \
+    --output-on-failure \
+    --parallel \
+    --test-dir "$build_dir" \
+    --verbose

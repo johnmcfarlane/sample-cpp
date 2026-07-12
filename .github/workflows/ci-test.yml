@@ -122,4 +122,3 @@ jobs:
         run: |
           scripts/install ${{ matrix.profile }}
           scripts/build ${{ matrix.profile }} .github/workflows/ci-test
-          scripts/test ${{ matrix.profile }}
