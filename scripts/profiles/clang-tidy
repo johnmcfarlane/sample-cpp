@@ -17,4 +17,6 @@ CXX=clang++
 &:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release", "CMAKE_CXX_CLANG_TIDY": "clang-tidy;--allow-no-checks"}
 
 [tool_requires]
+catch2/*:ninja/[~1]
 fmt/*:cmake/[~4.3]
+fmt/*:ninja/[~1]

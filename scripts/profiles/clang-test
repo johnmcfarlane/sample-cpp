@@ -17,4 +17,6 @@ CXX=clang++
 &:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release"}
 
 [tool_requires]
+catch2/*:ninja/[~1]
 fmt/*:cmake/[~4.3]
+fmt/*:ninja/[~1]

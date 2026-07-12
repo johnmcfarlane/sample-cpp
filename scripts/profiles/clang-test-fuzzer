@@ -18,4 +18,6 @@ FUZZER_CXX_FLAGS=-fsanitize=address,fuzzer,undefined
 &:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release", "ENABLE_FUZZER": "1"}
 
 [tool_requires]
+catch2/*:ninja/[~1]
 fmt/*:cmake/[~4.3]
+fmt/*:ninja/[~1]

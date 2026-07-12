@@ -5,7 +5,6 @@ RUN apt-get purge --autoremove --yes gcc libgmp-dev make \
   && apt-get install --no-install-recommends --quiet --yes \
       less \
       lsb-release \
-      ninja-build \
       python3-pip \
       sudo \
       tree \
