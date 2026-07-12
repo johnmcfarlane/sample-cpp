@@ -5,11 +5,11 @@ compiler=clang
 compiler.cppstd=26
 compiler.libcxx=libc++
 compiler.sanitizer=AddressUndefinedBehavior
-compiler.version=22
+compiler.version=23
 os=Linux
 
 [buildenv]
-CXX=/usr/bin/clang++
+CXX=clang++
 
 [conf]
 !&:tools.build:cxxflags=["-D_FORTIFY_SOURCE=3", "-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG", "-fdiagnostics-color=always", "-fno-sanitize-recover=all", "-fsanitize=address,undefined"]
