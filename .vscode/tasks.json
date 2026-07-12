@@ -45,6 +45,21 @@
             },
         },
         {
+            "label": "clean all",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-r",
+                "$BUILD_DIR_PARENT/*"
+            ],
+            "group": {
+                "kind": "build",
+            },
+            "presentation": {
+                "clear": true,
+            },
+        },
+        {
             "label": "lint",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/lint",
