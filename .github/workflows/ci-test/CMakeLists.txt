@@ -47,6 +47,9 @@ function(add_control_tests fault_name will_fail diagnostic)
     setup_control_test_properties(${fault_name}-exit ${fault_name}-output ${will_fail} ${diagnostic})
 endfunction()
 
+# Clang-Tidy catches excessive cognitive complexity.
+add_control_tests(complex $ENV{TRIGGER_CLANG_TIDY_COMPLEXITY} "function 'main' has cognitive complexity of 6")
+
 # TSan catches a data race.
 add_control_tests(data-race $ENV{TRIGGER_TSAN} "data race")
 
@@ -57,7 +60,7 @@ add_control_tests(vector-overflow $ENV{TRIGGER_STDLIB} "Illegal instruction|inde
 add_control_tests(integer-overflow $ENV{TRIGGER_UBSAN} "Illegal instruction|signed integer overflow")
 
 # Clang-Tidy catches a use of `goto`.
-add_control_tests(goto $ENV{TRIGGER_CLANG_TIDY} "avoid using 'goto' for flow control")
+add_control_tests(goto $ENV{TRIGGER_CLANG_TIDY_GOTO} "avoid using 'goto' for flow control")
 
 # The compiler catches an unused label.
 add_control_tests(unused-label $ENV{TRIGGER_WARNING} "my_unused_label")

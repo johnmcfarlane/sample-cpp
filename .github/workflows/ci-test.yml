@@ -29,63 +29,72 @@ jobs:
       matrix:
         include:
           - profile: clang-debug
-            trigger_clang_tidy: "FALSE"
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
             trigger_tsan: "FALSE"
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
           - profile: clang-release
-            trigger_clang_tidy: "FALSE"
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "FALSE"
             trigger_tsan: "FALSE"
             trigger_ubsan: "FALSE"
             trigger_warning: "FALSE"
 
           - profile: clang-test
-            trigger_clang_tidy: "FALSE"
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
             trigger_tsan: "FALSE"
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
           - profile: clang-test-fuzzer
-            trigger_clang_tidy: "FALSE"
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
             trigger_tsan: "FALSE"
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
           - profile: clang-test-tsan
-            trigger_clang_tidy: "FALSE"
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "FALSE"
             trigger_tsan: "TRUE"
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
           - profile: clang-tidy
-            trigger_clang_tidy: "TRUE"
+            trigger_clang_tidy_complexity: "TRUE"
+            trigger_clang_tidy_goto: "TRUE"
             trigger_stdlib: "TRUE"
             trigger_tsan: "FALSE"
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
           - profile: gcc-debug
-            trigger_clang_tidy: "FALSE"
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
             trigger_tsan: "FALSE"
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
           - profile: gcc-release
-            trigger_clang_tidy: "FALSE"
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "FALSE"
             trigger_tsan: "FALSE"
             trigger_ubsan: "FALSE"
             trigger_warning: "FALSE"
 
           - profile: gcc-test
-            trigger_clang_tidy: "FALSE"
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
             trigger_tsan: "FALSE"
             trigger_ubsan: "TRUE"
@@ -104,7 +113,8 @@ jobs:
 
       - name: Build and run control tests
         env:
-          TRIGGER_CLANG_TIDY: ${{ matrix.trigger_clang_tidy }}
+          TRIGGER_CLANG_TIDY_COMPLEXITY: ${{ matrix.trigger_clang_tidy_complexity }}
+          TRIGGER_CLANG_TIDY_GOTO: ${{ matrix.trigger_clang_tidy_goto }}
           TRIGGER_STDLIB: ${{ matrix.trigger_stdlib }}
           TRIGGER_TSAN: ${{ matrix.trigger_tsan }}
           TRIGGER_UBSAN: ${{ matrix.trigger_ubsan }}
