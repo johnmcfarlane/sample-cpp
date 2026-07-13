@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/johnmcfarlane/simple-cpp:5
+      image: ghcr.io/johnmcfarlane/sample-cpp:5
       credentials:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
