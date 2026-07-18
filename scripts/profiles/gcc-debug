@@ -18,5 +18,5 @@ CXX=g++
 
 [tool_requires]
 catch2/*:ninja/[~1]
-fmt/*:cmake/[~4.3]
+fmt/*:cmake/[~4.4]
 fmt/*:ninja/[~1]
