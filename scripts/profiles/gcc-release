@@ -11,6 +11,8 @@ os=Linux
 CXX=g++
 
 [conf]
+!&:tools.build:cxxflags=["-fcontract-evaluation-semantic=ignore", "-fcontracts"]
+&:tools.build:cxxflags=["-fcontract-evaluation-semantic=ignore", "-fcontracts"]
 &:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release"}
 
 [tool_requires]

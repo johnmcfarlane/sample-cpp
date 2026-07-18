@@ -8,7 +8,7 @@ namespace simple
 {
     using fmt::print;
 
-    export constexpr auto add(auto lhs, auto rhs)
+    export constexpr auto add(auto lhs, auto rhs) pre(lhs < -100)
     {
         print("{} + {} = {}", lhs, rhs, lhs + rhs);
         return lhs + rhs;
