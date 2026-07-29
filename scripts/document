@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+project_dir="$(realpath "$(dirname -- "$0")/..")"
+profile="$1"
+build_dir="$BUILD_DIR_PARENT"/"$profile"
+
+mkdir -p "$build_dir"
+cd "$build_dir"
+
+export INPUT="$project_dir"/src/simple.cpp
+doxygen "$project_dir"/scripts/Doxyfile
