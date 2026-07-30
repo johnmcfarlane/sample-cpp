@@ -52,7 +52,15 @@ jobs:
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
-          - profile: clang-test-fuzzer
+          - profile: clang-test-fuzzer-libc++
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
+            trigger_stdlib: "TRUE"
+            trigger_tsan: "FALSE"
+            trigger_ubsan: "TRUE"
+            trigger_warning: "TRUE"
+
+          - profile: clang-test-fuzzer-libstdc++
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"

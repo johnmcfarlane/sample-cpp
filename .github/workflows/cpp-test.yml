@@ -50,7 +50,8 @@ jobs:
           - clang-debug
           - clang-release
           - clang-test
-          - clang-test-fuzzer
+          - clang-test-fuzzer-libc++
+          - clang-test-fuzzer-libstdc++
           - clang-test-tsan
           - clang-tidy
           - gcc-debug
