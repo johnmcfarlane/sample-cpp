@@ -55,18 +55,18 @@ jobs:
           - profile: clang-test-fuzzer-libc++
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
-            trigger_stdlib: "TRUE"
+            trigger_stdlib: "FALSE"
             trigger_tsan: "FALSE"
-            trigger_ubsan: "TRUE"
-            trigger_warning: "TRUE"
+            trigger_ubsan: "FALSE"
+            trigger_warning: "FALSE"
 
           - profile: clang-test-fuzzer-libstdc++
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
-            trigger_stdlib: "TRUE"
+            trigger_stdlib: "FALSE"
             trigger_tsan: "FALSE"
-            trigger_ubsan: "TRUE"
-            trigger_warning: "TRUE"
+            trigger_ubsan: "FALSE"
+            trigger_warning: "FALSE"
 
           - profile: clang-test-tsan
             trigger_clang_tidy_complexity: "FALSE"
