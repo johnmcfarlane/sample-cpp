@@ -34,7 +34,8 @@
             "description": "Conan profile",
             "options": [
                 "clang-debug",
-                "clang-release",
+                "clang-release-libc++",
+                "clang-release-libstdc++",
                 "clang-test",
                 "clang-test-fuzzer",
                 "clang-test-tsan",
