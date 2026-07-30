@@ -1,0 +1,23 @@
+[settings]
+arch=x86_64
+build_type=Release
+compiler=clang
+compiler.cppstd=26
+compiler.libcxx=libc++
+compiler.sanitizer=AddressUndefinedBehaviorFuzzer
+compiler.version=23
+os=Linux
+
+[buildenv]
+CXX=clang++
+FUZZER_CXX_FLAGS=-fsanitize=address,fuzzer,undefined
+
+[conf]
+!&:tools.build:cxxflags=["-D_FORTIFY_SOURCE=3", "-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG", "-fdiagnostics-color=always", "-fno-sanitize-recover=all", "-fsanitize=address,undefined", "-march=native"]
+&:tools.build:cxxflags=["-D_FORTIFY_SOURCE=3", "-D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG", "-fdiagnostics-color=always", "-fno-sanitize-recover=all", "-fsanitize=address,undefined", "-g", "-march=native", "-Wall", "-Werror", "-Wextra"]
+&:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release", "ENABLE_FUZZER": "1"}
+
+[tool_requires]
+catch2/*:ninja/[~1]
+fmt/*:cmake/[~4.4]
+fmt/*:ninja/[~1]
