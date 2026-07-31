@@ -15,7 +15,7 @@ FUZZER_CXX_FLAGS=-fsanitize=fuzzer
 [conf]
 !&:tools.build:cxxflags=["-fsanitize=fuzzer-no-link"]
 &:tools.build:cxxflags=["-fsanitize=fuzzer-no-link"]
-&:tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release", "ENABLE_FUZZER": "1"}
+tools.cmake.cmaketoolchain:extra_variables={"CMAKE_BUILD_TYPE": "Release", "CMAKE_CXX_STDLIB_MODULES_JSON": "/usr/local/lib64/libstdc++.modules.json", "ENABLE_FUZZER": "1"}
 
 [tool_requires]
 catch2/*:ninja/[~1]
