@@ -28,7 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - profile: clang-debug
+          - profile: clang-asan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
@@ -36,15 +36,7 @@ jobs:
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
-          - profile: clang-release
-            trigger_clang_tidy_complexity: "FALSE"
-            trigger_clang_tidy_goto: "FALSE"
-            trigger_stdlib: "FALSE"
-            trigger_tsan: "FALSE"
-            trigger_ubsan: "FALSE"
-            trigger_warning: "FALSE"
-
-          - profile: clang-asan
+          - profile: clang-debug
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
@@ -60,6 +52,22 @@ jobs:
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
+          - profile: clang-release
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
+            trigger_stdlib: "FALSE"
+            trigger_tsan: "FALSE"
+            trigger_ubsan: "FALSE"
+            trigger_warning: "FALSE"
+
+          - profile: clang-tidy
+            trigger_clang_tidy_complexity: "TRUE"
+            trigger_clang_tidy_goto: "TRUE"
+            trigger_stdlib: "FALSE"
+            trigger_tsan: "FALSE"
+            trigger_ubsan: "FALSE"
+            trigger_warning: "TRUE"
+
           - profile: clang-tsan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
@@ -68,12 +76,12 @@ jobs:
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
-          - profile: clang-tidy
-            trigger_clang_tidy_complexity: "TRUE"
-            trigger_clang_tidy_goto: "TRUE"
-            trigger_stdlib: "FALSE"
+          - profile: gcc-asan
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
+            trigger_stdlib: "TRUE"
             trigger_tsan: "FALSE"
-            trigger_ubsan: "FALSE"
+            trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
           - profile: gcc-debug
@@ -91,14 +99,6 @@ jobs:
             trigger_tsan: "FALSE"
             trigger_ubsan: "FALSE"
             trigger_warning: "FALSE"
-
-          - profile: gcc-asan
-            trigger_clang_tidy_complexity: "FALSE"
-            trigger_clang_tidy_goto: "FALSE"
-            trigger_stdlib: "TRUE"
-            trigger_tsan: "FALSE"
-            trigger_ubsan: "TRUE"
-            trigger_warning: "TRUE"
 
     steps:
       - name: Cache build artefacts

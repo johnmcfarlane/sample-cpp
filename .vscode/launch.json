@@ -33,16 +33,16 @@
             "type": "pickString",
             "description": "Conan profile",
             "options": [
-                "clang-debug",
-                "clang-release",
                 "clang-asan",
+                "clang-debug",
                 "clang-fuzzer",
-                "clang-tsan",
+                "clang-release",
                 "clang-tidy",
+                "clang-tsan",
+                "gcc-asan",
                 "gcc-debug",
                 "gcc-gcov",
-                "gcc-release",
-                "gcc-asan"
+                "gcc-release"
             ]
         }
     ]
