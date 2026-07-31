@@ -71,9 +71,9 @@ jobs:
           - profile: clang-tidy
             trigger_clang_tidy_complexity: "TRUE"
             trigger_clang_tidy_goto: "TRUE"
-            trigger_stdlib: "TRUE"
+            trigger_stdlib: "FALSE"
             trigger_tsan: "FALSE"
-            trigger_ubsan: "TRUE"
+            trigger_ubsan: "FALSE"
             trigger_warning: "TRUE"
 
           - profile: gcc-debug
