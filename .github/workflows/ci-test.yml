@@ -44,7 +44,7 @@ jobs:
             trigger_ubsan: "FALSE"
             trigger_warning: "FALSE"
 
-          - profile: clang-test
+          - profile: clang-asan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
@@ -52,7 +52,7 @@ jobs:
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
-          - profile: clang-test-fuzzer
+          - profile: clang-fuzzer
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
@@ -60,7 +60,7 @@ jobs:
             trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
-          - profile: clang-test-tsan
+          - profile: clang-tsan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "FALSE"
@@ -92,7 +92,7 @@ jobs:
             trigger_ubsan: "FALSE"
             trigger_warning: "FALSE"
 
-          - profile: gcc-test
+          - profile: gcc-asan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"

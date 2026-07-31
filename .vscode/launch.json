@@ -35,14 +35,14 @@
             "options": [
                 "clang-debug",
                 "clang-release",
-                "clang-test",
-                "clang-test-fuzzer",
-                "clang-test-tsan",
+                "clang-asan",
+                "clang-fuzzer",
+                "clang-tsan",
                 "clang-tidy",
                 "gcc-debug",
-                "gcc-govr",
+                "gcc-gcov",
                 "gcc-release",
-                "gcc-test"
+                "gcc-asan"
             ]
         }
     ]
