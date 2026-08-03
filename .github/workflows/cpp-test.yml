@@ -59,13 +59,6 @@ jobs:
           - gcc-test
 
     steps:
-      - name: Cache build artefacts
-        uses: actions/cache@v6
-        with:
-          key: ${{ matrix.profile }}-${{ hashFiles('conanfile.*') }}
-          path: |
-            ~/.conan2/p
-
       - name: Check out code
         uses: actions/checkout@v7
 
