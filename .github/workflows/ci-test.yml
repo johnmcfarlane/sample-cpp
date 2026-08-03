@@ -60,7 +60,7 @@ jobs:
             trigger_ubsan: "FALSE"
             trigger_warning: "FALSE"
 
-          - profile: clang-test-tsan
+          - profile: clang-tsan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "FALSE"

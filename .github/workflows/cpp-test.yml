@@ -51,7 +51,7 @@ jobs:
           - clang-debug
           - clang-fuzzer
           - clang-release
-          - clang-test-tsan
+          - clang-tsan
           - clang-tidy
           - gcc-debug
           - gcc-gcov
