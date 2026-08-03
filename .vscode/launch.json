@@ -37,12 +37,12 @@
                 "clang-debug",
                 "clang-fuzzer",
                 "clang-release",
+                "clang-test-tsan",
                 "clang-tidy",
-                "clang-tsan",
-                "gcc-asan",
                 "gcc-debug",
-                "gcc-gcov",
-                "gcc-release"
+                "gcc-govr",
+                "gcc-release",
+                "gcc-test"
             ]
         }
     ]
