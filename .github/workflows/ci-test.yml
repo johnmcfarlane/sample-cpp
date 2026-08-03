@@ -60,20 +60,20 @@ jobs:
             trigger_ubsan: "FALSE"
             trigger_warning: "FALSE"
 
-          - profile: clang-tsan
-            trigger_clang_tidy_complexity: "FALSE"
-            trigger_clang_tidy_goto: "FALSE"
-            trigger_stdlib: "FALSE"
-            trigger_tsan: "TRUE"
-            trigger_ubsan: "TRUE"
-            trigger_warning: "TRUE"
-
           - profile: clang-tidy
             trigger_clang_tidy_complexity: "TRUE"
             trigger_clang_tidy_goto: "TRUE"
             trigger_stdlib: "FALSE"
             trigger_tsan: "FALSE"
             trigger_ubsan: "FALSE"
+            trigger_warning: "TRUE"
+
+          - profile: clang-tsan
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
+            trigger_stdlib: "FALSE"
+            trigger_tsan: "TRUE"
+            trigger_ubsan: "TRUE"
             trigger_warning: "TRUE"
 
           - profile: gcc-debug
