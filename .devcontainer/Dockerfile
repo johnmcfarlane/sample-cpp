@@ -3,6 +3,7 @@ FROM gcc:16.1.0 AS builder
 RUN apt-get purge --autoremove --yes gcc libgmp-dev make \
   && apt-get update --quiet \
   && apt-get install --no-install-recommends --quiet --yes \
+      doxygen \
       less \
       lsb-release \
       python3-pip \

@@ -80,6 +80,18 @@
                 "kind": "test"
             },
         },
+        {
+            "label": "document",
+            // "dependsOn": "build",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/document",
+            "args": [
+                "${input:profile}"
+            ],
+            "group": {
+                "kind": "test"
+            },
+        },
     ],
     "inputs": [
         {
