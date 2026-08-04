@@ -1,5 +1,5 @@
 [requires]
-fmt/[~12]
+fmt/12.1.0
 
 [test_requires]
 catch2/[~3]
