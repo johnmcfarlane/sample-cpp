@@ -101,15 +101,15 @@ jobs:
             trigger_warning: "FALSE"
 
     steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+
       - name: Cache build artefacts
         uses: actions/cache@v6
         with:
-          key: ${{ matrix.profile }}-${{ hashFiles('conanfile.*') }}
+          key: ${{ matrix.profile }}-${{ hashFiles('.devcontainer/**', 'conanfile.*', 'scripts/profiles/${{ matrix.profile }}') }}
           path: |
             ~/.conan2/p
-
-      - name: Check out code
-        uses: actions/checkout@v7
 
       - name: Build and run control tests
         env:
