@@ -13,7 +13,6 @@ mkdir -p "$build_dir"
 
 # Initialise Conan.
 conan config install "$project_dir"/.devcontainer/conan-config
-conan profile detect --force
 
 # Install dependencies.
 conan install \
@@ -21,5 +20,6 @@ conan install \
     --generator=CMakeDeps \
     --generator=CMakeToolchain \
     --output-folder="$build_dir" \
-    --profile="$profile_path" \
+    --profile:build=scripts/profiles/gcc-release \
+    --profile:host="$profile_path" \
     "$project_dir"
