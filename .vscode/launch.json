@@ -32,6 +32,7 @@
             "id": "profile",
             "type": "pickString",
             "description": "Conan profile",
+            "default": "gcc-release",
             "options": [
                 "clang-asan",
                 "clang-debug",

@@ -32,4 +32,4 @@ Basic VS Code tasks are provided to build and test the software. To build and te
    1. Select [the project directory](.).
 1. Run the _test_ task:
    1. Run command, "Tasks: Run Task", select "test".
-   1. Choose profile, [gcc-release](scripts/profiles/gcc-release).
+   1. Choose a profile, e.g., [gcc-release](scripts/profiles/gcc-release).

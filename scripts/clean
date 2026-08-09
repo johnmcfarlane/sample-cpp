@@ -4,7 +4,7 @@
 
 set -euox pipefail
 
-profile="${1:-gcc-release}"
+profile="$1"
 build_dir="$BUILD_DIR_PARENT"/"$profile"
 
 # Go to the build directory.
