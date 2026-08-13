@@ -9,21 +9,23 @@ RUN apt-get install --no-install-recommends --quiet --yes \
       sudo \
       tree
 
-RUN bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+RUN wget https://apt.llvm.org/llvm.sh
+RUN chmod +x llvm.sh
+RUN ./llvm.sh 23
 RUN apt-get install --no-install-recommends --quiet --yes \
-      clang-22 \
-      clang-format-22 \
-      clang-tidy-22 \
-      libc++-22-dev \
-      libclang-rt-22-dev \
-      lld-22
+      clang-23 \
+      clang-format-23 \
+      clang-tidy-23 \
+      libc++-23-dev \
+      libclang-rt-23-dev \
+      lld-23
 RUN apt-get --quiet --yes autoremove
 
-RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-22 1
-RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-22 1
-RUN update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-22 1
-RUN update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-22 1
-RUN update-alternatives --install /usr/bin/ld ld /usr/bin/lld-22 1
+RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-23 1
+RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-23 1
+RUN update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-23 1
+RUN update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-23 1
+RUN update-alternatives --install /usr/bin/ld ld /usr/bin/lld-23 1
 
 RUN pip install "conan~=2.0" "gcovr~=8.0" "shellcheck-py~=0.11" --break-system-packages --no-cache-dir
 
