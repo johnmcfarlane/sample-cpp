@@ -14,12 +14,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  tests:
+  conan-tests:
     name: CI test
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/johnmcfarlane/sample-cpp:7
+      image: ghcr.io/johnmcfarlane/sample-cpp:8
       credentials:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -29,6 +29,7 @@ jobs:
       matrix:
         include:
           - profile: clang-asan
+            pm: conan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
@@ -37,6 +38,7 @@ jobs:
             trigger_warning: "TRUE"
 
           - profile: clang-debug
+            pm: conan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
@@ -45,6 +47,7 @@ jobs:
             trigger_warning: "TRUE"
 
           - profile: clang-fuzzer
+            pm: conan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
@@ -53,6 +56,7 @@ jobs:
             trigger_warning: "TRUE"
 
           - profile: clang-release
+            pm: conan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "FALSE"
@@ -61,6 +65,7 @@ jobs:
             trigger_warning: "FALSE"
 
           - profile: clang-tidy
+            pm: conan
             trigger_clang_tidy_complexity: "TRUE"
             trigger_clang_tidy_goto: "TRUE"
             trigger_stdlib: "FALSE"
@@ -69,6 +74,7 @@ jobs:
             trigger_warning: "TRUE"
 
           - profile: clang-tsan
+            pm: conan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "FALSE"
@@ -77,6 +83,7 @@ jobs:
             trigger_warning: "TRUE"
 
           - profile: gcc-asan
+            pm: conan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
@@ -85,6 +92,7 @@ jobs:
             trigger_warning: "TRUE"
 
           - profile: gcc-debug
+            pm: conan
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "TRUE"
@@ -93,6 +101,16 @@ jobs:
             trigger_warning: "TRUE"
 
           - profile: gcc-release
+            pm: conan
+            trigger_clang_tidy_complexity: "FALSE"
+            trigger_clang_tidy_goto: "FALSE"
+            trigger_stdlib: "FALSE"
+            trigger_tsan: "FALSE"
+            trigger_ubsan: "FALSE"
+            trigger_warning: "FALSE"
+
+          - profile: gcc-release
+            pm: vcpkg
             trigger_clang_tidy_complexity: "FALSE"
             trigger_clang_tidy_goto: "FALSE"
             trigger_stdlib: "FALSE"
@@ -115,12 +133,13 @@ jobs:
       - name: Cache build artefacts
         uses: actions/cache@v6
         with:
-          key: ${{ matrix.profile }}-${{ hashFiles('.devcontainer/**', 'conanfile.*', 'scripts/profiles/${{ matrix.profile }}') }}
+          key: ${{ matrix.profile }}-${{ hashFiles('.devcontainer/**', 'conanfile.*', 'scripts/profiles/${{ matrix.profile }}', 'vcpkg.json', 'vcpkg-configuration.json') }}
           path: |
             ~/.conan2/p
+            ~/.cache/vcpkg/archives
 
       - name: Build
-        run: scripts/install ${{ matrix.profile }}
+        run: scripts/${{ matrix.pm }}/install ${{ matrix.profile }}
 
       - name: Test
-        run: scripts/build ${{ matrix.profile }} .github/workflows/ci-test
+        run: scripts/${{ matrix.pm }}/build ${{ matrix.profile }} .github/workflows/ci-test

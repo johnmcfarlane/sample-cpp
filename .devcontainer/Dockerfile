@@ -5,11 +5,15 @@ FROM gcc:16.1.0 AS builder
 RUN apt-get purge --autoremove --yes gcc libgmp-dev make
 RUN apt-get update --quiet
 RUN apt-get install --no-install-recommends --quiet --yes \
+      curl \
       less \
       lsb-release \
       python3-pip \
       sudo \
-      tree
+      tar \
+      tree \
+      unzip \
+      zip
 
 # install recent LLVM toolchain and tools
 RUN wget https://apt.llvm.org/llvm.sh
@@ -39,3 +43,11 @@ FROM debian:trixie-20260623-slim
 COPY --from=builder /usr /usr
 COPY --from=builder /etc /etc
 ENV BUILD_DIR_PARENT=/root/builds
+
+WORKDIR /root
+RUN git clone https://github.com/Microsoft/vcpkg.git
+WORKDIR /root/vcpkg
+RUN ./bootstrap-vcpkg.sh
+# RUN ./vcpkg integrate install
+ENV VCPKG_ROOT=/root/vcpkg
+ENV PATH="$VCPKG_ROOT:$PATH"

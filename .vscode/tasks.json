@@ -2,9 +2,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "install",
+            "label": "Conan install",
             "type": "shell",
-            "command": "${workspaceFolder}/scripts/install",
+            "command": "${workspaceFolder}/scripts/conan/install",
             "args": [
                 "${input:profile}"
             ],
@@ -16,10 +16,10 @@
             },
         },
         {
-            "label": "build",
-            "dependsOn": "install",
+            "label": "Conan build",
+            "dependsOn": "Conan install",
             "type": "shell",
-            "command": "${workspaceFolder}/scripts/build",
+            "command": "${workspaceFolder}/scripts/conan/build",
             "args": [
                 "${input:profile}"
             ],
@@ -29,11 +29,37 @@
             },
         },
         {
-            "label": "clean",
+            "label": "vcpkg install",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/vcpkg/install",
+            "args": [
+                "${input:triplet}"
+            ],
+            "group": {
+                "kind": "build"
+            },
+            "presentation": {
+                "clear": true,
+            },
+        },
+        {
+            "label": "vcpkg build",
+            "dependsOn": "vcpkg install",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/vcpkg/build",
+            "args": [
+                "${input:triplet}"
+            ],
+            "group": {
+                "kind": "build"
+            },
+        },
+        {
+            "label": "Conan clean",
             "type": "shell",
             "command": "${workspaceFolder}/scripts/clean",
             "args": [
-                "${input:profile}"
+                "conan/profiles/${input:profile}"
             ],
             "group": {
                 "kind": "build",
@@ -97,6 +123,15 @@
                 "gcc-asan",
                 "gcc-debug",
                 "gcc-gcov",
+                "gcc-release"
+            ]
+        },
+        {
+            "id": "triplet",
+            "type": "pickString",
+            "description": "vcpkg overlay triplet",
+            "default": "gcc-release",
+            "options": [
                 "gcc-release"
             ]
         }
