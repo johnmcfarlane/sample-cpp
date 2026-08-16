@@ -4,9 +4,9 @@
         {
             "label": "install",
             "type": "shell",
-            "command": "${workspaceFolder}/scripts/install",
+            "command": "${workspaceFolder}/scripts/${input:package-manager}/install",
             "args": [
-                "${input:profile}"
+                "${input:config}"
             ],
             "group": {
                 "kind": "build"
@@ -19,9 +19,9 @@
             "label": "build",
             "dependsOn": "install",
             "type": "shell",
-            "command": "${workspaceFolder}/scripts/build",
+            "command": "${workspaceFolder}/scripts/${input:package-manager}/build",
             "args": [
-                "${input:profile}"
+                "${input:config}"
             ],
             "group": {
                 "kind": "build",
@@ -33,7 +33,7 @@
             "type": "shell",
             "command": "${workspaceFolder}/scripts/clean",
             "args": [
-                "${input:profile}"
+                "${input:package-manager}/config/${input:config}"
             ],
             "group": {
                 "kind": "build",
@@ -74,7 +74,8 @@
             "type": "shell",
             "command": "${workspaceFolder}/scripts/report",
             "args": [
-                "${input:profile}"
+                "${input:package-manager}",
+                "${input:config}"
             ],
             "group": {
                 "kind": "test"
@@ -83,9 +84,19 @@
     ],
     "inputs": [
         {
-            "id": "profile",
+            "id": "package-manager",
             "type": "pickString",
-            "description": "Conan profile",
+            "description": "Package manager",
+            "default": "conan",
+            "options": [
+                "conan",
+                "vcpkg"
+            ]
+        },
+        {
+            "id": "config",
+            "type": "pickString",
+            "description": "Build configuration",
             "default": "gcc-release",
             "options": [
                 "clang-asan",

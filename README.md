@@ -22,7 +22,7 @@ See [conanfile.txt](conanfile.txt) for software dependencies, which include:
 * [Catch2](https://github.com/catchorg/Catch2) 3.14
 * [fmt](https://github.com/fmtlib/fmt) 12
 
-## Instructions
+## Instructions (Conan)
 
 Basic VS Code tasks are provided to build and test the software. To build and test:
 
@@ -32,4 +32,4 @@ Basic VS Code tasks are provided to build and test the software. To build and te
    1. Select [the project directory](.).
 1. Run the _test_ task:
    1. Run command, "Tasks: Run Task", select "test".
-   1. Choose a profile, e.g., [gcc-release](scripts/profiles/gcc-release).
+   1. Choose a profile, e.g., [gcc-release](scripts/conan/config/gcc-release).

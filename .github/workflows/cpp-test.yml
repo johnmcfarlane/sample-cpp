@@ -28,7 +28,7 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           imageName: ghcr.io/johnmcfarlane/sample-cpp
-          imageTag: 6
+          imageTag: 7
           push: always
 
   unit-tests:
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/johnmcfarlane/sample-cpp:6
+      image: ghcr.io/johnmcfarlane/sample-cpp:7
       credentials:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -45,49 +45,65 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        profile:
-          - clang-asan
-          - clang-debug
-          - clang-fuzzer
-          - clang-release
-          - clang-tidy
-          - clang-tsan
-          - gcc-asan
-          - gcc-debug
-          - gcc-gcov
-          - gcc-release
+        include:
+          - profile: clang-asan
+            package-manager: conan
+          - profile: clang-debug
+            package-manager: conan
+          - profile: clang-fuzzer
+            package-manager: conan
+          - profile: clang-release
+            package-manager: conan
+          - profile: clang-tidy
+            package-manager: conan
+          - profile: clang-tsan
+            package-manager: conan
+          - profile: gcc-asan
+            package-manager: conan
+          - profile: gcc-debug
+            package-manager: conan
+          - profile: gcc-gcov
+            package-manager: conan
+          - profile: gcc-release
+            package-manager: conan
+          - profile: gcc-release
+            package-manager: vcpkg
 
     steps:
       - name: Check out code
         uses: actions/checkout@v7
 
-      - name: Cache build artefacts
-        uses: actions/cache@v6
-        with:
-          key: ${{ matrix.profile }}-${{ hashFiles(
-            '.devcontainer/**',
-            '.github/workflows/cpp-test.yml',
-            'conanfile.*',
-            'scripts/profiles/${{ matrix.profile }}') }}
-          path: |
-            ~/.conan2/p
+      # - name: Cache build artefacts
+      #   uses: actions/cache@v6
+      #   with:
+      #     key: ${{ matrix.profile }}-${{ hashFiles(
+      #       '.devcontainer/**',
+      #       '.github/workflows/cpp-test.yml',
+      #       'conanfile.*',
+      #       'scripts/${{ matrix:package-manager }}/install',
+      #       'scripts/${{ matrix:package-manager }}/config/${{ matrix.profile }}',
+      #       'vcpkg-configuration.json',
+      #       'vcpkg.json') }}
+      #     path: |
+      #       ~/.conan2/p
+      #       ~/.cache/vcpkg/archives
 
       - name: Build
-        run: scripts/install ${{ matrix.profile }}
+        run: scripts/${{ matrix:package-manager }}/install ${{ matrix.profile }}
 
       - name: Test
-        run: scripts/build ${{ matrix.profile }}
+        run: scripts/${{ matrix:package-manager }}/build ${{ matrix.profile }}
 
       - name: Generate coverage report
         if: ${{ matrix.profile == 'gcc-gcov' }}
-        run: scripts/report ${{ matrix.profile }}
+        run: scripts/report ${{ matrix:package-manager }} ${{ matrix.profile }}
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v7
         if: ${{ matrix.profile == 'gcc-gcov' }}
         with:
           name: coverage-report
-          path: /root/builds/${{ matrix.profile }}/test-coverage.html
+          path: /root/builds/${{ matrix:package-manager }}/${{ matrix.profile }}/test-coverage.html
           if-no-files-found: error
 
   lint:

@@ -2,10 +2,9 @@
 
 set -euox pipefail
 
-project_dir="$(realpath "$(dirname -- "$0")/..")"
+project_dir="$(realpath "$(dirname -- "$0")/../..")"
 profile="$1"
-profile_path=scripts/profiles/"$profile"
-build_dir="$BUILD_DIR_PARENT"/"$profile"
+build_dir="$BUILD_DIR_PARENT"/conan/"$profile"
 
 # Create the build directory.
 # Make it unique to the profile, in case multiple profiles are built.
@@ -20,6 +19,6 @@ conan install \
     --generator=CMakeDeps \
     --generator=CMakeToolchain \
     --output-folder="$build_dir" \
-    --profile:build=scripts/profiles/clang-release \
-    --profile:host="$profile_path" \
+    --profile:build=scripts/conan/config/clang-release \
+    --profile:host=scripts/conan/config/"$profile" \
     "$project_dir"
