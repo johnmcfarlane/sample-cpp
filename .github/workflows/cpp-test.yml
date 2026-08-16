@@ -28,7 +28,7 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           imageName: ghcr.io/johnmcfarlane/sample-cpp
-          imageTag: 6
+          imageTag: 7
           push: always
 
   unit-tests:
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/johnmcfarlane/sample-cpp:6
+      image: ghcr.io/johnmcfarlane/sample-cpp:7
       credentials:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -45,17 +45,29 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        profile:
-          - clang-asan
-          - clang-debug
-          - clang-fuzzer
-          - clang-release
-          - clang-tidy
-          - clang-tsan
-          - gcc-asan
-          - gcc-debug
-          - gcc-gcov
-          - gcc-release
+        include:
+          - profile: clang-asan
+            pm: conan
+          - profile: clang-debug
+            pm: conan
+          - profile: clang-asan
+            pm: conan
+          - profile: clang-asan
+            pm: conan
+          - profile: clang-asan
+            pm: conan
+          - profile: clang-asan
+            pm: conan
+          - profile: clang-asan
+            pm: conan
+          - profile: clang-asan
+            pm: conan
+          - profile: clang-asan
+            pm: conan
+          - profile: gcc-release
+            pm: conan
+          - profile: gcc-release
+            pm: vcpkg
 
     steps:
       - name: Check out code
@@ -68,15 +80,21 @@ jobs:
             '.devcontainer/**',
             '.github/workflows/cpp-test.yml',
             'conanfile.*',
-            'scripts/profiles/${{ matrix.profile }}') }}
+            'scripts/conan/install',
+            'scripts/conan/profiles/${{ matrix.profile }}',
+            'scripts/vcpkg/install',
+            'scripts/vcpkg/triplets/${{ matrix.profile }}',
+            'vcpkg-configuration.json',
+            'vcpkg.json') }}
           path: |
             ~/.conan2/p
+            ~/.cache/vcpkg/archives
 
       - name: Build
-        run: scripts/install ${{ matrix.profile }}
+        run: scripts/${{ matrix.pm }}/install ${{ matrix.profile }}
 
       - name: Test
-        run: scripts/build ${{ matrix.profile }}
+        run: scripts/${{ matrix.pm }}/build ${{ matrix.profile }}
 
       - name: Generate coverage report
         if: ${{ matrix.profile == 'gcc-gcov' }}
@@ -87,7 +105,7 @@ jobs:
         if: ${{ matrix.profile == 'gcc-gcov' }}
         with:
           name: coverage-report
-          path: /root/builds/${{ matrix.profile }}/test-coverage.html
+          path: /root/builds/${{ matrix.pm }}/${{ matrix.profile }}/test-coverage.html
           if-no-files-found: error
 
   lint:

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euox pipefail
+
+project_dir="$(realpath "$(dirname -- "$0")/../..")"
+triplet="$1"
+build_dir="$BUILD_DIR_PARENT"/vcpkg/"$triplet"
+
+# Create the build directory.
+# Make it unique to the /LASKEKRHGM;LVSEIURHG;SC.ELRJ,IG;COSIERHJMG;OISDRHJG;OI, in case multiple profiles are built.
+mkdir -p "$build_dir"
+
+pip install \
+    --break-system-packages \
+    "cmake~=4.4" \
+    "ninja~=1.0"
+
+vcpkg install \
+    --overlay-triplets="$project_dir/scripts/vcpkg/triplets" \
+    --triplet="$triplet"
