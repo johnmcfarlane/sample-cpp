@@ -100,6 +100,14 @@ jobs:
             trigger_ubsan: "FALSE"
             trigger_warning: "FALSE"
 
+    env:
+      TRIGGER_CLANG_TIDY_COMPLEXITY: ${{ matrix.trigger_clang_tidy_complexity }}
+      TRIGGER_CLANG_TIDY_GOTO: ${{ matrix.trigger_clang_tidy_goto }}
+      TRIGGER_STDLIB: ${{ matrix.trigger_stdlib }}
+      TRIGGER_TSAN: ${{ matrix.trigger_tsan }}
+      TRIGGER_UBSAN: ${{ matrix.trigger_ubsan }}
+      TRIGGER_WARNING: ${{ matrix.trigger_warning }}
+
     steps:
       - name: Check out code
         uses: actions/checkout@v7
@@ -115,14 +123,8 @@ jobs:
           path: |
             ~/.conan2/p
 
-      - name: Build and run control tests
-        env:
-          TRIGGER_CLANG_TIDY_COMPLEXITY: ${{ matrix.trigger_clang_tidy_complexity }}
-          TRIGGER_CLANG_TIDY_GOTO: ${{ matrix.trigger_clang_tidy_goto }}
-          TRIGGER_STDLIB: ${{ matrix.trigger_stdlib }}
-          TRIGGER_TSAN: ${{ matrix.trigger_tsan }}
-          TRIGGER_UBSAN: ${{ matrix.trigger_ubsan }}
-          TRIGGER_WARNING: ${{ matrix.trigger_warning }}
-        run: |
-          scripts/install ${{ matrix.profile }}
-          scripts/build ${{ matrix.profile }} .github/workflows/ci-test
+      - name: Build
+        run: scripts/install ${{ matrix.profile }}
+
+      - name: Test
+        run: scripts/build ${{ matrix.profile }} .github/workflows/ci-test
