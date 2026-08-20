@@ -107,7 +107,11 @@ jobs:
       - name: Cache build artefacts
         uses: actions/cache@v6
         with:
-          key: ${{ matrix.profile }}-${{ hashFiles('.devcontainer/**', 'conanfile.*', 'scripts/profiles/${{ matrix.profile }}') }}
+          key: ${{ matrix.profile }}-${{ hashFiles(
+            '.devcontainer/**',
+            '.github/workflows/ci-test.yml',
+            'conanfile.*',
+            'scripts/profiles/${{ matrix.profile }}') }}
           path: |
             ~/.conan2/p
 
