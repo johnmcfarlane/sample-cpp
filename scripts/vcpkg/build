@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -euox pipefail
+
+project_dir="$(realpath "$(dirname -- "$0")/../..")"
+triplet="$1"
+cmake_project_dir="${2:-$project_dir}"
+build_dir="$BUILD_DIR_PARENT/vcpkg/triplets/$triplet.cmake"
+
+# Generate build system.
+cmake \
+    --toolchain "$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" \
+    -B "$build_dir" \
+    -G Ninja \
+    -S "$cmake_project_dir"
+
+# Build project.
+cmake --build "$build_dir" --verbose
+
+# Run unit tests.
+ctest \
+    --output-on-failure \
+    --parallel \
+    --repeat-until-fail 10 \
+    --schedule-random \
+    --test-dir "$build_dir" \
+    --verbose
