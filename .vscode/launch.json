@@ -29,7 +29,7 @@
     }],
     "inputs": [
         {
-            "id": "profile",
+            "id": "conan-profile",
             "type": "pickString",
             "description": "Conan profile",
             "default": "gcc-release",
